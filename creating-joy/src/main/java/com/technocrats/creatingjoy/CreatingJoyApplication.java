@@ -1,4 +1,4 @@
-package com.project.creatingjoy;
+package com.technocrats.creatingjoy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
