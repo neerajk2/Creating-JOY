@@ -51,11 +51,8 @@ public class Query {
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="requestor_id")
-    private User requestor;
+    private User user;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="acceptor_id")
-    private User acceptor;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="address_id")

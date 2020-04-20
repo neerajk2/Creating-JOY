@@ -44,7 +44,7 @@ public class User {
     private String password;
 
 
-    @Column(unique = "true",name="user_website")
+    @Column(name="user_website")
     private String website;
 
 
@@ -71,10 +71,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
 
-    @OneToMany(mappedBy = "User",cascade={CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @OneToMany(mappedBy = "user",cascade={CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private List<Query> queries;
 
-    @OneToMany(mappedBy = "User",cascade={CascadeType.ALL})
+
+
+
+    @OneToMany(mappedBy = "user",cascade={CascadeType.ALL})
     private List<Address> addresses;
 
 

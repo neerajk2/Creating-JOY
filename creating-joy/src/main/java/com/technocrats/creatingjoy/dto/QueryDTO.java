@@ -3,6 +3,7 @@ package com.technocrats.creatingjoy.dto;
 import com.technocrats.creatingjoy.entity.Address;
 import com.technocrats.creatingjoy.entity.Category;
 import com.technocrats.creatingjoy.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.sql.Time;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class QueryDTO {
 
     private int id;
