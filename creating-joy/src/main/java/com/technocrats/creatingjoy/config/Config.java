@@ -1,4 +1,9 @@
 package com.technocrats.creatingjoy.config;
 
-public class Config {
+
+public class Config{
+
 }
+
+
+
