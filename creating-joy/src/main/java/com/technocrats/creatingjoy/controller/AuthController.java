@@ -36,7 +36,7 @@ public class AuthController {
                 if (users.get(i).getPassword().equals(user.getPassword()))
                     return "home";
                 else {
-                    model.addAttribute("Message", "WrongPassword!!");
+                    model.addAttribute("Message", "Wrong Password!!");
                     return "login_signup";
                 }
 
@@ -61,7 +61,6 @@ public class AuthController {
         }
         users.add(user);
 
-      
         return "login_signup";
     }
 

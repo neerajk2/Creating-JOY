@@ -48,15 +48,18 @@ public class User {
     private String website;
 
 
+
     @Column(name="user_rating")
-    @Size(min=1,message="is required")
     @NotNull(message="is required")
     private int rating;
+
+
 
     @Column(name="user_phoneno")
     @Size(min=1,message="is required")
     @NotNull(message="is required")
     private String phoneNo;
+
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH })
     @JoinTable(name = "user_role",
@@ -73,8 +76,6 @@ public class User {
 
     @OneToMany(mappedBy = "user",cascade={CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private List<Query> queries;
-
-
 
 
     @OneToMany(mappedBy = "user",cascade={CascadeType.ALL})
