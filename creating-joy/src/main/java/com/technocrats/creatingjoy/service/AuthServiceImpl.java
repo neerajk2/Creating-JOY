@@ -28,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
             log.info("Verification status {}", verification.getStatus());
             return true;
         } catch (Exception exception) {
-            log.info("Exception : {}", exception.getMessage());
+            log.error(exception.getMessage());
             return false;
         }
     }
@@ -48,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
                 return false;
             }
         } catch (Exception exception) {
-            log.info("Exception : {}", exception.getMessage());
+            log.error(exception.getMessage());
             return false;
         }
     }
