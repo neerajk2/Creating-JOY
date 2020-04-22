@@ -4,6 +4,7 @@ package com.technocrats.creatingjoy.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ import java.sql.Time;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Query {
 
 
@@ -28,7 +30,7 @@ public class Query {
     @NotNull(message="is required")
     private String queryText;
 
-
+    @ToString.Exclude
     @Lob
     @Column(name="query_image")
     @NotNull(message = "is required")
@@ -45,15 +47,17 @@ public class Query {
     @Column(name="dislikes")
     private int dislikes;
 
+    @ToString.Exclude
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="category_id")
     private Category category;
 
+    @ToString.Exclude
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="requestor_id")
     private User user;
 
-
+    @ToString.Exclude
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="address_id")
     private Address address;

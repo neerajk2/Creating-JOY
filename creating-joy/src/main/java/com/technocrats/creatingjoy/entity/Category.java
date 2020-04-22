@@ -3,6 +3,7 @@ package com.technocrats.creatingjoy.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Category {
 
     @Id
@@ -27,7 +29,7 @@ public class Category {
     private String categoryName;
 
 
-
+    @ToString.Exclude
     @OneToMany(mappedBy = "category",cascade={CascadeType.ALL})
     private List<Query> queries;
 

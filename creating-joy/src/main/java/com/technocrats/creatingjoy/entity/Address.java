@@ -3,6 +3,7 @@ package com.technocrats.creatingjoy.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Address {
 
     @Id
@@ -59,6 +61,7 @@ public class Address {
     @NotNull(message="is required")
     private String country;
 
+    @ToString.Exclude
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="user_id")
     private User user;

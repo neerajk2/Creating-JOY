@@ -5,26 +5,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.technocrats.creatingjoy.dao.AddressRepository;
 import com.technocrats.creatingjoy.dao.UserRepository;
+import com.technocrats.creatingjoy.entity.Address;
 import com.technocrats.creatingjoy.entity.User;
+import lombok.extern.slf4j.Slf4j;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@Slf4j
 public class UserRepositoryTest {
-    @Autowired
-    private TestEntityManager entityManager;
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
+
     @Test
     public void testSaveUser(){
         User user = getUser1();
-        User savedInDb = entityManager.persist(user);
+        User savedInDb = userRepository.save(user);
         Optional<User> getFromDb = userRepository.findById(savedInDb.getId());
         assertThat(getFromDb.get()).isEqualTo(savedInDb);
     }
@@ -47,18 +55,34 @@ public class UserRepositoryTest {
         user.setLastName("lala");
         user.setPassword("123456");
         user.setUserName("ajay172");
-        user.setWebsite("wwww.ajaygithub.github.io");
+        user.setWebsite("wwww.ajaylala.github.io");
         user.setPhoneNo("9948750016");
         user.setRating(2);
 
+
+
         return user;
+    }
+
+    private Address getAddress(){
+        Address address=new Address();
+
+        address.setCity("Hyderabad");
+        address.setHouseNo("1-5/2/A");
+        address.setState("Telangana");
+        address.setStreet("Durshed");
+        address.setZIP("505001");
+        address.setCountry("India");
+
+        return address;
+
     }
 
     @Test
     public void testRemoveUser(){
         User user = getUser1();
-        User savedInDb = entityManager.persist(user);
-        entityManager.remove(user);
+        User savedInDb = userRepository.save(user);
+        userRepository.delete(user);
         boolean result=userRepository.existsById(savedInDb.getId());
 
         assertThat(result).isEqualTo(false);
@@ -75,8 +99,11 @@ public class UserRepositoryTest {
         expectedUsersList.add(user1);
         expectedUsersList.add(user2);
 
-        entityManager.persist(user1);
-        entityManager.persist(user2);
+        userRepository.save(user1);
+        userRepository.save(user2);
+
+
+
 
         List<User> actualUsers = userRepository.findAll();
 
@@ -86,10 +113,29 @@ public class UserRepositoryTest {
     @Test
     public void testFindById() {
         User expectedUser=getUser1();
-        entityManager.persist(expectedUser);
+        userRepository.save(expectedUser);
         Optional<User> actualUser=userRepository.findById(expectedUser.getId());
         assertThat(actualUser.get()).isEqualTo(expectedUser);
     }
+
+
+    @Test
+    public void testUserAndAddress(){
+        User user = getUser1();
+        Address address=getAddress();
+        address.setUser(user);
+        Address theAddress = addressRepository.save(address);
+        List<Address> userAddresses = new ArrayList<>();
+        userAddresses.add(theAddress);
+        user.setAddresses(userAddresses);
+        User savedUserInDb = userRepository.save(user);
+        Optional<Address> getAddressFromDb = addressRepository.findById(address.getId());
+        log.info("User details : {} ",user);
+        log.info("user Id : {} address Id : {}",user.getId(),theAddress.getId());
+        assertThat(getAddressFromDb.get().getUser()).isEqualTo(savedUserInDb);
+    }
+
+
 
 
 
