@@ -26,6 +26,16 @@ public class AuthController {
         return "login_signup";
     }
 
+    @GetMapping("/verifyOTP")
+    public String verifyOtp(String text) {
+        return "otp_page";
+//        if (text.equals("1234")) {
+//            return "login_signup";
+//        } else {
+//            return "Invalid OTP";
+//        }
+    }
+
 
     @PostMapping("/validate")
     public String validate(@ModelAttribute(name = "user") UserDTO user, Model model) {

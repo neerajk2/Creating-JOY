@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>OTP verification</title>
+
+
+
+    <style>
+
+       *{
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        line-height: 200%;
+
+        }
+        .hero{
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(to right, #0575E6, #00F260);
+        background: url('/images/home-bg.jpg') no-repeat center center;
+        background-position: center;
+        background-size: cover;
+        position: absolute;
+        }
+
+        .overlay {
+        background: #00F260;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #0575E6, #00F260);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #0575E6, #00F260); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        opacity: 0.7;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        left: 0;
+        }
+
+	.form-box{
+        width: 380px;
+        height: 300px;
+        position: relative;
+        margin: 6% auto;
+        background: transparent;
+        padding: 5px;
+        overflow: hidden;
+        }
+
+	.form-box .inputBox{
+        position: relative;
+        }
+
+        .form-box .inputBox label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 16px;
+        pointer-events: none;
+        transition: 0.5s;
+        padding:17px 10px;
+        }
+
+        .form-box .inputBox .input-field:focus ~ label, .form-box .inputBox .input-field:valid ~ label{
+        top: -33px;
+        left: 0;
+        font-weight: bold;
+        font-size: 14px;
+        color: #000000
+        }
+
+    .input-field{
+        width: 90%;
+        padding: 8px 10px;
+        margin: 10px 0;
+        border-left: 0;
+        border-top: 0;
+        border-right: 0;
+        border-bottom: 1px solid #000000;
+        outline: none;
+        background: #fff;
+	    font-size: 16px;
+	    border-radius: 30px;
+        }
+
+	.submit-btn{
+        width: 90%;
+        padding: 10px;
+        margin-left: 10px;
+        cursor: pointer;
+        display: block;
+        background: linear-gradient(to right, #FFEE20, #FF4500);
+        border: 0;
+        outline: none;
+        border-radius: 30px;
+	    font-weight: bold;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div class="hero">
+
+<!-- HOME -->
+<section id="home" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+</div>
+</section>
+
+     <div class="form-box">
+         <h3>Enter the OTP to verify your registration:</h3>
+         <div class="inputBox">
+                <input type="text" name="Otp" class="input-field" required>
+                <label>Enter OTP</label>
+                <input type="submit" value="Verify OTP" class="submit-btn">
+                <h4> If OTP not received, click <a>here</a> to resend the OTP.</h4>
+         </div>
+     </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+

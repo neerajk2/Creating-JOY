@@ -11,7 +11,6 @@ package com.technocrats.creatingjoy.dto;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
 public class UserDTO {
 
 
