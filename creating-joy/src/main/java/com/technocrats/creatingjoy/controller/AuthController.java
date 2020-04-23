@@ -1,12 +1,15 @@
 package com.technocrats.creatingjoy.controller;
 
 import com.technocrats.creatingjoy.dto.UserDTO;
+import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,20 +23,25 @@ public class AuthController {
         return "login_signup";
     }
 
-
     @GetMapping("/showLogin")
     public String showLogin() {
         return "login_signup";
     }
 
-    @GetMapping("/verifyOTP")
-    public String verifyOtp(String text) {
+    @PostMapping("/verifyOTP")
+    public String verifyOtp(Model model, HttpServletRequest request) {
+        String otp = request.getParameter("OTP");
+        if (otp.equals("1234")) {
+            return "login_signup";
+        } else {
+            model.addAttribute("Message", "Invalid OTP!");
+            return "otp_page";
+        }
+    }
+
+    @GetMapping("/sendOTP")
+    public String sendOtp(){
         return "otp_page";
-//        if (text.equals("1234")) {
-//            return "login_signup";
-//        } else {
-//            return "Invalid OTP";
-//        }
     }
 
 

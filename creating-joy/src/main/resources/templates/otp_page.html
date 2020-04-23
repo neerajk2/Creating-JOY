@@ -111,15 +111,17 @@
 </div>
 </section>
 
-     <div class="form-box">
+     <form class="form-box" action="#" th:action="@{/verifyOTP}" method="post" >
+         <p th:if="${Message}"><p th:text="${Message}"></p></p>
          <h3>Enter the OTP to verify your registration:</h3>
          <div class="inputBox">
-                <input type="text" name="Otp" class="input-field" required>
+                <input type="text" name="OTP" class="input-field" required>
                 <label>Enter OTP</label>
                 <input type="submit" value="Verify OTP" class="submit-btn">
-                <h4> If OTP not received, click <a>here</a> to resend the OTP.</h4>
+                <h4> If OTP not received, click <a th:href="@{/verifyOTP}">here</a> to resend the OTP.</h4>
          </div>
-     </div>
+     </form>
+
 </div>
 </body>
 </html>
