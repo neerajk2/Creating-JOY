@@ -26,8 +26,7 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private AddressRepository addressRepository;
+
 
     @Test
     public void testSaveUser(){
@@ -123,16 +122,17 @@ public class UserRepositoryTest {
     public void testUserAndAddress(){
         User user = getUser1();
         Address address=getAddress();
-        address.setUser(user);
-        Address theAddress = addressRepository.save(address);
-        List<Address> userAddresses = new ArrayList<>();
-        userAddresses.add(theAddress);
-        user.setAddresses(userAddresses);
+        user.setAddress(address);
+
         User savedUserInDb = userRepository.save(user);
-        Optional<Address> getAddressFromDb = addressRepository.findById(address.getId());
-        log.info("User details : {} ",user);
-        log.info("user Id : {} address Id : {}",user.getId(),theAddress.getId());
-        assertThat(getAddressFromDb.get().getUser()).isEqualTo(savedUserInDb);
+
+        Address addressFromDB=savedUserInDb.getAddress();
+        log.info("User details : {} ",savedUserInDb);
+        log.info("Address details:{}",addressFromDB);
+
+        assertThat(addressFromDB).isEqualTo(address);
+
+
     }
 
 

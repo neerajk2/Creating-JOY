@@ -82,10 +82,9 @@ public class User {
     private List<Query> queries;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "user",cascade={CascadeType.ALL})
-    private List<Address> addresses;
+    @OneToOne(mappedBy = "user",cascade={CascadeType.ALL})
+    private Address address;
 
-
-
+    
 
 }

@@ -17,6 +17,31 @@ import javax.validation.constraints.Size;
 @ToString
 public class Address {
 
+
+    public Address(int id, String houseNo,String street, String city, String landmark,String ZIP,String state,String country, User user) {
+        this.id = id;
+        this.houseNo = houseNo;
+        this.street = street;
+        this.city = city;
+        this.landmark = landmark;
+        this.ZIP = ZIP;
+        this.state = state;
+        this.country = country;
+        this.user = user;
+    }
+
+    public Address(int id,String houseNo,String street,String city, String landmark,String ZIP,String state,String country, Query query) {
+        this.id = id;
+        this.houseNo = houseNo;
+        this.street = street;
+        this.city = city;
+        this.landmark = landmark;
+        this.ZIP = ZIP;
+        this.state = state;
+        this.country = country;
+        this.query = query;
+    }
+
     @Id
     @Column(name="address_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -61,11 +86,17 @@ public class Address {
     @NotNull(message="is required")
     private String country;
 
+
     @ToString.Exclude
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="user_id")
     private User user;
 
+
+    @ToString.Exclude
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name="query_id")
+    private Query query;
 
 
 
