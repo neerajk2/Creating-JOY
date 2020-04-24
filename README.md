@@ -25,6 +25,7 @@ This is an application that’ll bring all the individual donors as well as NGOs
 - Frontend : HTML,CSS,Javascript,Thymeleaf
 - Backend : Spring Boot 
 - Database : MySQL
+- Notifications : Twilio Notify API
 
 ## How to use it 
 
