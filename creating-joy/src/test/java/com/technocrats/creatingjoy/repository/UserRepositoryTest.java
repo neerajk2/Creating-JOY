@@ -1,21 +1,20 @@
 package com.technocrats.creatingjoy.repository;
 
-/*import static org.assertj.core.api.Assertions.assertThat;
+import com.technocrats.creatingjoy.dao.UserRepository;
+import com.technocrats.creatingjoy.entity.Address;
+import com.technocrats.creatingjoy.entity.User;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.technocrats.creatingjoy.entity.Address;
-import com.technocrats.creatingjoy.entity.User;
-import lombok.extern.slf4j.Slf4j;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import org.springframework.test.context.junit4.SpringRunner;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -41,7 +40,7 @@ public class UserRepositoryTest {
         user.setPassword("123456");
         user.setUserName("shravan172");
         user.setWebsite("wwww.shravanvemula.github.io");
-        user.setPhoneNo("9908338102");
+        user.setPhoneNumber("9908338102");
         user.setRating(2);
 
         return user;
@@ -54,7 +53,7 @@ public class UserRepositoryTest {
         user.setPassword("123456");
         user.setUserName("ajay172");
         user.setWebsite("wwww.ajaylala.github.io");
-        user.setPhoneNo("9948750016");
+        user.setPhoneNumber("9948750016");
         user.setRating(2);
 
 
@@ -66,7 +65,7 @@ public class UserRepositoryTest {
         Address address=new Address();
 
         address.setCity("Hyderabad");
-        address.setHouseNo("1-5/2/A");
+        address.setHouseNumber("1-5/2/A");
         address.setState("Telangana");
         address.setStreet("Durshed");
         address.setZIP("505001");
@@ -122,6 +121,7 @@ public class UserRepositoryTest {
         User user = getUser1();
         Address address=getAddress();
         user.setAddress(address);
+        address.setUser(user);
 
         User savedUserInDb = userRepository.save(user);
 
@@ -136,7 +136,7 @@ public class UserRepositoryTest {
 
 }
 
- */
+
 
 
 

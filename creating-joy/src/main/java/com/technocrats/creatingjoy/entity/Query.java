@@ -21,7 +21,7 @@ public class Query {
 
 
     @Id
-    @Column(name="user_id")
+    @Column(name="query_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
@@ -59,12 +59,8 @@ public class Query {
 
     @ToString.Exclude
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="address_id")
+    @JoinColumn(name="query_id")
     private Address address;
-
-
-
-
 
 
 }

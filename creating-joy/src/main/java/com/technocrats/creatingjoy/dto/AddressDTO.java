@@ -1,21 +1,21 @@
 package com.technocrats.creatingjoy.dto;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@ToString
 public class AddressDTO {
 
 
     private int id;
 
-    private String houseNo;
+    private String houseNumber;
 
     private String street;
 
@@ -29,9 +29,12 @@ public class AddressDTO {
 
     private String country;
 
-    private UserDTO userDto;
+    @ToString.Exclude
+    private UserDTO userDTO;
 
 
+    @ToString.Exclude
+    private QueryDTO queryDTO;
 
 
 

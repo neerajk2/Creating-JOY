@@ -173,44 +173,73 @@
             <button type="button" class="toggle-btn" onclick="login()">Log In</button>
             <button type="button" class="toggle-btn" onclick="register()">Register</button>
         </div>
-        <form action="#" th:action="@{/validate}" th:object="${user}"  id="login" method="post" class="input-group">
-            <p th:if="${Message}"><p th:text="${Message}"></p></p>
+        <form action="#" th:action="@{/authenticateTheUser}"  id="login" method="post" class="input-group">
+
+            <div class="form-group">
+                <div class="col-xs-15">
+                    <div>
+
+                        <!-- Check for login error -->
+                        <div th:if="${param.error}" class="alert alert-danger">
+                            Invalid username and password.
+                        </div>
+
+                        <!-- Check for logout -->
+                        <div th:if="${param.logout}" class="alert alert-success">
+                            You have been logged out.
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${registrationSuccess}" class="alert alert-success">
+                <p th:text="${registrationSuccess}"></p>
+                <br><br><br><br><br>
+            </div>
+
             <div class="inputBox">
-                <input type="text" name="userName" class="input-field" required>
+                <input type="text" name="username" class="input-field" required>
                 <label>Username</label>
             </div>
             <div class="inputBox">
-                <input type="text" name="password" class="input-field" required>
+                <input type="password" name="password" class="input-field" required>
                 <label>Password</label>
             </div>
             <input type="checkbox" class="check-box"><span>Remember Password</span>
             <input type="submit" value="Log in" class="submit-btn">
         </form>
-        <form id="register" action="#" th:action="@{/register/processRegistrationForm}"  th:object="${user}" method="post" class="input-group">
+        <form id="register" action="#" th:action="@{/processRegistrationForm}"  th:object="${user}" method="post" class="input-group">
 
 
 
 
             <!-- Check for registration error -->
-            <div th:if="${registrationError}" class="alert alert-danger col-xs-offset-1 col-xs-10">
+            <div th:if="${registrationError}" class="alert alert-danger">
                 <p th:text="${registrationError}"></p>
                 <br><br><br><br><br>
             </div>
 
-
-
+            <div th:if="${registrationSuccess}" class="alert alert-success">
+                <p th:text="${registrationSuccess}"></p>
+                <br><br><br><br><br>
+            </div>
 
             <div class="inputBox">
-                <input type="text" class="input-field" th:field="*{firstName}" required>
+                <input type="text" class="input-field" th:field="*{firstName}" pattern="[a-zA-Z]{3,30}" required>
+
                 <label>First Name</label>
+                <p class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
             </div>
             <div class="inputBox">
-                <input type="text" class="input-field" th:field="*{lastName}" required>
+                <input type="text" class="input-field" th:field="*{lastName}" pattern="[a-zA-Z]{3,30}" required>
                 <label>Last Name</label>
+                <p  class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
             </div>
             <div class="inputBox">
-                <input type="text" class="input-field" th:field="*{phoneNumber}" required>
+                <input type="text" class="input-field" th:field="*{phoneNumber}"  pattern="[0-9]{10,.}" required>
                 <label>Phone number</label>
+                <p class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{phoneNumber}"></p>
             </div>
             <div class="inputBox">
                 <input type="text" class="input-field" th:field="*{website}" required>
@@ -220,18 +249,13 @@
             <div class="inputBox">
                 <input type="text" class="input-field" th:field="*{userName}" required>
                 <label>Username</label>
-            </div>
-
-            <div th:if="${#fields.hasErrors('userName')}"
-                 style="margin-bottom: 25px" class="text-danger">
-                <ul>
-                    <li th:each="err : ${#fields.errors('userName')}" th:text="'User name ' + ${err}" />
-                </ul>
+                <p class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
             </div>
 
             <div class="inputBox">
-                <input type="text" class="input-field" name="password" required>
+                <input type="password" class="input-field" name="password" pattern=".{8,20}" required>
                 <label>Password</label>
+                <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
             </div>
             <th:block th:object="${address}">
                 <div class="inputBox">

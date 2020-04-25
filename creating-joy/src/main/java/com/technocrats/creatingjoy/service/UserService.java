@@ -1,17 +1,16 @@
 package com.technocrats.creatingjoy.service;
 
-import com.technocrats.creatingjoy.entity.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.technocrats.creatingjoy.dto.UserDTO;
 
 import java.util.List;
 
-public interface UserService extends UserDetailsService {
+public interface UserService{
 
-    List<User> findAll();
-    User findById(int id);
-    void save(User user);
+    List<UserDTO> findAll();
+    UserDTO findById(int id);
+    void save(UserDTO user);
     void deleteById(int id);
-    User findByUserName(String userName);
+    UserDTO findByUserName(String userName);
 
 
 
