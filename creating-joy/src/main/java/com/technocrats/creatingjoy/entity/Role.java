@@ -26,7 +26,7 @@ public class Role {
     @Column(name="role_name")
     @Size(min=1,message = "is required")
     @NotNull(message="is required")
-    private String roleName;
+    private String name;
 
 
 

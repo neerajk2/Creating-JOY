@@ -1,12 +1,11 @@
 package com.technocrats.creatingjoy.repository;
-import static org.assertj.core.api.Assertions.assertThat;
+
+/*import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.technocrats.creatingjoy.dao.AddressRepository;
-import com.technocrats.creatingjoy.dao.UserRepository;
 import com.technocrats.creatingjoy.entity.Address;
 import com.technocrats.creatingjoy.entity.User;
 import lombok.extern.slf4j.Slf4j;
@@ -135,9 +134,13 @@ public class UserRepositoryTest {
 
     }
 
-
-
-
-
 }
+
+ */
+
+
+
+
+
+
 

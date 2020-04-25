@@ -18,29 +18,6 @@ import javax.validation.constraints.Size;
 public class Address {
 
 
-    public Address(int id, String houseNo,String street, String city, String landmark,String ZIP,String state,String country, User user) {
-        this.id = id;
-        this.houseNo = houseNo;
-        this.street = street;
-        this.city = city;
-        this.landmark = landmark;
-        this.ZIP = ZIP;
-        this.state = state;
-        this.country = country;
-        this.user = user;
-    }
-
-    public Address(int id,String houseNo,String street,String city, String landmark,String ZIP,String state,String country, Query query) {
-        this.id = id;
-        this.houseNo = houseNo;
-        this.street = street;
-        this.city = city;
-        this.landmark = landmark;
-        this.ZIP = ZIP;
-        this.state = state;
-        this.country = country;
-        this.query = query;
-    }
 
     @Id
     @Column(name="address_id")
@@ -51,7 +28,7 @@ public class Address {
     @Column(name="house_no")
     @Size(min=1,message = "is required")
     @NotNull(message="is required")
-    private String houseNo;
+    private String houseNumber;
 
     @Column(name="street")
     @Size(min=1,message = "is required")
@@ -89,13 +66,13 @@ public class Address {
 
     @ToString.Exclude
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="user_id",nullable = false)
     private User user;
 
 
     @ToString.Exclude
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="query_id")
+    @JoinColumn(name="query_id",nullable = false)
     private Query query;
 
 

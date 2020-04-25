@@ -60,7 +60,7 @@ public class User {
     @Column(name="user_phoneno")
     @Size(min=1,message="is required")
     @NotNull(message="is required")
-    private String phoneNo;
+    private String phoneNumber;
 
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH })
