@@ -1,91 +1,89 @@
 package com.technocrats.creatingjoy.controller;
 
+
+import com.technocrats.creatingjoy.dto.AddressDTO;
 import com.technocrats.creatingjoy.dto.UserDTO;
-import org.apache.catalina.filters.ExpiresFilter;
+import com.technocrats.creatingjoy.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
 
 @Controller
+@Slf4j
 public class AuthController {
 
-    List<UserDTO> users = new ArrayList<UserDTO>();
 
-    @GetMapping("/")
-    public String login() {
+
+
+    @Autowired
+    private UserService userService;
+
+
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
+
+    @GetMapping("/home")
+    public String showHome(){
+        return "home";
+    }
+
+    @GetMapping("/showRegistrationForm")
+    public String showMyLoginPage(Model theModel) {
+
+        theModel.addAttribute("user", new UserDTO());
+        theModel.addAttribute("address",new AddressDTO());
+
+
         return "login_signup";
     }
 
-    @GetMapping("/showLogin")
-    public String showLogin() {
-        return "login_signup";
-    }
 
-    @PostMapping("/verifyOTP")
-    public String verifyOtp(Model model, HttpServletRequest request) {
-        String otp = request.getParameter("OTP");
-        if (otp.equals("1234")) {
+    @PostMapping("/processRegistrationForm")
+    public String processRegistrationForm(
+            @Valid @ModelAttribute("user") UserDTO user, @ModelAttribute("address") AddressDTO address,
+            BindingResult theBindingResult,
+            Model theModel) {
+
+        log.info("address is {}",address);
+
+        String userName = user.getUserName();
+        log.info("Processing registration form for: " + userName);
+
+
+        if (theBindingResult.hasErrors()){
             return "login_signup";
-        } else {
-            model.addAttribute("Message", "Invalid OTP!");
-            return "otp_page";
         }
-    }
-
-    @GetMapping("/sendOTP")
-    public String sendOtp(){
-        return "otp_page";
-    }
 
 
-    @PostMapping("/validate")
-    public String validate(@ModelAttribute(name = "user") UserDTO user, Model model) {
+        UserDTO existing = userService.findByUserName(userName);
+        if (existing != null){
+            theModel.addAttribute("user", new UserDTO());
+            theModel.addAttribute("address",new AddressDTO());
+            theModel.addAttribute("registrationError", "User name already exists.");
 
-
-        for (int i = 0; i < users.size(); i++) {
-
-            if (users.get(i).getUserName().equals(user.getUserName())) {
-                if (users.get(i).getPassword().equals(user.getPassword()))
-                    return "home";
-                else {
-                    model.addAttribute("Message", "Wrong Password!!");
-                    return "login_signup";
-                }
-
-
-            }
+            log.error("User name already exists.");
+            return "login_signup";
         }
-        model.addAttribute("Message", "You are not registered!!");
-        return "login_signup";
+        address.setUserDTO(user);
+        user.setAddressDTO(address);
+        userService.save(user);
 
-    }
 
-
-    @PostMapping("/addUser")
-    public String addUser(@ModelAttribute(name = "user") UserDTO user, Model model) {
-        for (int i = 0; i < users.size(); i++) {
-
-            if (users.get(i).getUserName().equals(user.getUserName())) {
-                model.addAttribute("Message", "UserName already exists!!");
-                return "login_signup";
-            }
-
-        }
-        users.add(user);
-
+        theModel.addAttribute("registrationSuccess", "Registered Successfully.Please log in");
         return "login_signup";
     }
-
-
-
-
 
 
 }
