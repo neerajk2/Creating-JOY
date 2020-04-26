@@ -111,7 +111,7 @@
 </div>
 </section>
 
-     <form class="form-box" action="#" th:action="@{/verifyOTP}" method="post" >
+     <form class="form-box" action="#" th:action="@{/verifyOTP}" method="post" th:object="${userDTO}">
          <p th:if="${Message}"><p th:text="${Message}"></p></p>
          <h3>Enter the OTP to verify your registration:</h3>
          <div class="inputBox">
@@ -120,9 +120,93 @@
                 <input type="submit" value="Verify OTP" class="submit-btn">
                 <h4> If OTP not received, click <a th:href="@{/verifyOTP}">here</a> to resend the OTP.</h4>
          </div>
-     </form>
+       <!-- Check for registration error -->
+
+        <div class="inputBox">
+            <input type="hidden" class="input-field" th:field="*{firstName}" pattern="[a-zA-Z]{3,30}" required>
+
+            <label>First Name</label>
+            <p class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+        </div>
+        <div class="inputBox">
+            <input type="hidden" class="input-field" th:field="*{lastName}" pattern="[a-zA-Z]{3,30}" required>
+
+            <p  class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+        </div>
+        <div class="inputBox">
+            <input type="hidden" class="input-field" th:field="*{phoneNumber}"  pattern="[0-9]{10,.}" required>
+
+            <p class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{phoneNumber}"></p>
+        </div>
+        <div class="inputBox">
+            <input type="hidden" class="input-field" th:field="*{website}" required>
+
+        </div>
+
+        <div class="inputBox">
+            <input type="hidden" class="input-field" th:field="*{userName}" required>
+
+            <p class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
+        </div>
+
+        <div class="inputBox">
+            <input type="hidden" class="input-field"  pattern=".{8,20}" th:field="*{password}" required>
+
+        </div>
+        <th:block th:object="${addressDTO}">
+            <div class="inputBox">
+                <input type="hidden" class="input-field" th:field="*{houseNumber}" required>
+
+            </div>
+            <div class="inputBox">
+                <input type="text" class="input-field" th:field="*{street}" required>
+
+            </div>
+            <div class="inputBox">
+                <input type="hidden" class="input-field" th:field="*{landmark}" required>
+
+            </div>
+            <div class="inputBox">
+                <input type="hidden" class="input-field" th:field="*{city}" required>
+
+            </div>
+            <div class="inputBox">
+                <input type="hidden" class="input-field" th:field="*{ZIP}" required>
+
+            </div>
+            <div class="inputBox">
+                <input type="hidden" class="input-field" th:field="*{state}" required>
+
+            </div>
+            <div class="inputBox">
+                <input type="hidden" class="input-field" th:field="*{country}" required>
+
+            </div>
+
+        </th:block>
+
+
+    </form>
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
 

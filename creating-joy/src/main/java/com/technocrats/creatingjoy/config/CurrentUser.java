@@ -12,8 +12,8 @@ public class CurrentUser implements UserDetails {
 
     private UserDTO user;
 
-    public CurrentUser(UserDTO user){
-        this.user=user;
+    public CurrentUser(UserDTO user) {
+        this.user = user;
     }
 
     @Override

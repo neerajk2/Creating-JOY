@@ -20,7 +20,6 @@
         height: 150%;
         width: 100%;
         background: linear-gradient(to right, #0575E6, #00F260);
-
         background: url('/images/home-bg.jpg') no-repeat center center;
         background-position: center;
         background-size: cover;
@@ -42,7 +41,6 @@
 
         .form-box{
         width: 380px;
-
         height: 1200px;
         position: relative;
         margin: 6% auto;
@@ -162,7 +160,6 @@
 <body>
 <div class="hero">
 
-
     <!-- HOME -->
     <section id="home" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
@@ -170,14 +167,12 @@
         </div>
     </section>
 
-
     <div class="form-box">
         <div class="button-box">
             <div id="btn"></div>
             <button type="button" class="toggle-btn" onclick="login()">Log In</button>
             <button type="button" class="toggle-btn" onclick="register()">Register</button>
         </div>
-
         <form action="#" th:action="@{/authenticateTheUser}"  id="login" method="post" class="input-group">
 
             <div class="form-group">
@@ -209,14 +204,12 @@
             </div>
             <div class="inputBox">
                 <input type="password" name="password" class="input-field" required>
-
                 <label>Password</label>
             </div>
             <input type="checkbox" class="check-box"><span>Remember Password</span>
             <input type="submit" value="Log in" class="submit-btn">
         </form>
-
-        <form id="register" action="#" th:action="@{/processRegistrationForm}"  th:object="${user}" method="post" class="input-group">
+        <form id="register" action="#" th:action="@{/processRegistrationForm}"  th:object="${userDTO}" method="post" class="input-group">
 
 
 
@@ -260,11 +253,11 @@
             </div>
 
             <div class="inputBox">
-                <input type="password" class="input-field" name="password" pattern=".{8,20}" required>
+                <input type="password" class="input-field"  pattern=".{8,20}"  th:field="*{password}" required>
                 <label>Password</label>
                 <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
             </div>
-            <th:block th:object="${address}">
+            <th:block th:object="${addressDTO}">
                 <div class="inputBox">
                     <input type="text" class="input-field" th:field="*{houseNumber}" required>
                     <label>House number</label>

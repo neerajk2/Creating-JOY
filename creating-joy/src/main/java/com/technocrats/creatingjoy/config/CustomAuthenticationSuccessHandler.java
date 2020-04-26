@@ -2,6 +2,7 @@ package com.technocrats.creatingjoy.config;
 
 import com.technocrats.creatingjoy.dto.UserDTO;
 import com.technocrats.creatingjoy.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 
@@ -24,11 +26,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
 
-        System.out.println("\n\nIn customAuthenticationSuccessHandler\n\n");
+        log.info("{}", "In customAuthenticationSuccessHandler");
 
         String userName = authentication.getName();
 
-        System.out.println("userName=" + userName);
+        log.info("userName=" + userName);
 
         UserDTO theUser = userService.findByUserName(userName);
 
@@ -38,7 +40,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         // forward to home page
 
-        response.sendRedirect(request.getContextPath() + "/register/home");
+        response.sendRedirect(request.getContextPath() + "/home");
 
 
     }
