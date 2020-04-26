@@ -28,9 +28,17 @@ public class AuthServiceImpl implements AuthService {
             log.info("Verification status {}", verification.getStatus());
             return true;
         } catch (Exception exception) {
+            log.info("{}",to);
+            log.info("{}",channel);
+            log.info("{}",twilioConfig.getAccountSid());
+            log.info("{}",twilioConfig.getAuthToken());
+            log.info("{}",twilioConfig.getPathServiceSid());
             log.error(exception.getMessage());
             return false;
         }
+
+
+
     }
 
     @Override
