@@ -3,6 +3,7 @@ package com.technocrats.creatingjoy.controller;
 
 import com.technocrats.creatingjoy.dto.AddressDTO;
 import com.technocrats.creatingjoy.dto.UserDTO;
+import com.technocrats.creatingjoy.service.AuthService;
 import com.technocrats.creatingjoy.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
 @Slf4j
 public class AuthController {
 
+
+    @Autowired
+    private AuthService authService;
 
 
 
@@ -35,7 +41,13 @@ public class AuthController {
     }
 
     @GetMapping("/home")
-    public String showHome(){
+    public String showHome(Model model,HttpServletRequest request){
+
+        HttpSession session=request.getSession();
+        UserDTO userDTO=(UserDTO)session.getAttribute("user");
+        model.addAttribute("currentUser",userDTO);
+
+
         return "home";
     }
 
@@ -51,38 +63,81 @@ public class AuthController {
 
 
     @PostMapping("/processRegistrationForm")
+
     public String processRegistrationForm(
-            @Valid @ModelAttribute("user") UserDTO user, @ModelAttribute("address") AddressDTO address,
+
+            @Valid @ModelAttribute("user") UserDTO userDTO, @ModelAttribute("address") AddressDTO addressDTO,
             BindingResult theBindingResult,
-            Model theModel) {
+            Model theModel,HttpServletRequest request) {
+        HttpSession session = request.getSession();
 
-        log.info("address is {}",address);
+        log.info("address is {}", addressDTO);
 
-        String userName = user.getUserName();
+        String userName = userDTO.getUserName();
         log.info("Processing registration form for: " + userName);
 
 
-        if (theBindingResult.hasErrors()){
+        if (theBindingResult.hasErrors()) {
             return "login_signup";
         }
 
+        if(!(request.getParameter("password").equals(request.getParameter("confirm-password")))){
+            theModel.addAttribute("user", new UserDTO());
+            theModel.addAttribute("address", new AddressDTO());
+            theModel.addAttribute("registrationError", "Passwords doesn't match.");
+
+            return "login_signup";
+        }
 
         UserDTO existing = userService.findByUserName(userName);
-        if (existing != null){
+        if (existing != null) {
             theModel.addAttribute("user", new UserDTO());
-            theModel.addAttribute("address",new AddressDTO());
+            theModel.addAttribute("address", new AddressDTO());
             theModel.addAttribute("registrationError", "User name already exists.");
 
-            log.error("User name already exists.");
             return "login_signup";
         }
-        address.setUserDTO(user);
-        user.setAddressDTO(address);
-        userService.save(user);
+
+        session.setAttribute("registerUser", userDTO);
+        session.setAttribute("registerAddress",addressDTO);
+        authService.sendToken(userDTO.getPhoneNumber(), "sms");
+
+        return "otp_page";
+    }
+
+    @PostMapping("/verifyOTP")
+    public String verifyOtp( Model model, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        UserDTO userDTO=(UserDTO)session.getAttribute("registerUser");
+        AddressDTO addressDTO=(AddressDTO)session.getAttribute("registerAddress");
+        String otp = request.getParameter("OTP");
+        String phoneNumber = userDTO.getPhoneNumber();
+
+        if (authService.verifyToken(otp, phoneNumber)) {
+            userDTO.setAddressDTO(addressDTO);
+            addressDTO.setUserDTO(userDTO);
+
+            userService.save(userDTO);
+            model.addAttribute("user", new UserDTO());
+            model.addAttribute("address", new AddressDTO());
+            return "login_signup";
 
 
-        theModel.addAttribute("registrationSuccess", "Registered Successfully.Please log in");
-        return "login_signup";
+        }
+        else {
+            model.addAttribute("Message", "Invalid OTP!");
+            return "otp_page";
+        }
+
+    }
+    @GetMapping("/resendOTP")
+    public String resendOTP( HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserDTO userDTO=(UserDTO)session.getAttribute("registerUser");
+        authService.sendToken(userDTO.getPhoneNumber(), "sms");
+
+        return "otp_page";
     }
 
 

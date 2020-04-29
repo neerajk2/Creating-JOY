@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Creating - JOY home</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">-->
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="/css/templatemo-style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+
+         .overlay {
+        background: #00F260;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #0575E6, #00F260);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #0575E6, #00F260); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        opacity: 0.7;
+        position: absolute;
+        width: 100%;
+        height: 400%;
+        top: 0;
+        right: 0;
+        left: 0;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<section  data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+</section>
+
+<!-- PRE LOADER -->
+<section class="preloader">
+    <div class="spinner">
+        <span class="spinner-rotate"></span>
+    </div>
+</section>
+
+
+<!-- MENU -->
+<section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+            </button>
+
+            <!-- lOGO TEXT HERE -->
+            <a th:href="@{/query/showHome}" class="navbar-brand">Creating - JOY</a>
+        </div>
+
+        <!-- MENU LINKS -->
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-nav-first">
+                <li><a th:href="@{/query/showHome}" class="smoothScroll">Home</a></li>
+                <li><a th:href="@{/query/food}" class="smoothScroll">Food</a></li>
+                <li><a th:href="@{/query/shelter}" class="smoothScroll">Shelter</a></li>
+                <li><a th:href="@{/query/clothes}" class="smoothScroll">Clothes</a></li>
+                <th:block th:if="${user}">
+                <li><a th:href="@{/query/myQueries}" class="smoothScroll">My Queries</a></li>
+                </th:block>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- BLOG -->
+<section id="blog" data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-md-12 col-sm-12">
+                <div class="section-title">
+                    <h2>Posted Queries</h2>
+                    <h4>Queries in need of shelter</h4>
+                    <span class="line-bar">...</span>
+                </div>
+            </div>
+            <div th:each="queryAndAddress : ${QueryAddress}" style="color:black;">
+                <div class="col-md-12 col-sm-12">
+                    <!-- BLOG THUMB -->
+                    <div class="media blog-thumb">
+                        <div class="media-object media-left">
+                           <img class="img-responsive"  th:src="@{${queryAndAddress.query.queryImage}}" alt="" align="center" style="margin:30px;width:400px;height:400px;" />
+
+                        </div>
+                        <div class="media-body blog-info">
+                            <small><i class="fa fa-clock-o"></i>  <p th:text="${queryAndAddress.query.timestamp}"></p></small>
+
+                            <h3 th:text="${queryAndAddress.query.queryText}"></h3>
+
+                            <h4>Address:</h4>
+
+                            <h4 th:text="${queryAndAddress.address.street}+','+${queryAndAddress.address.landmark}+','+${queryAndAddress.address.city}+','+${queryAndAddress.address.state}+','+${queryAndAddress.address.country}+','+${queryAndAddress.address.ZIP}"></h4>
+                            <h4 th:text="'Posted By '+${queryAndAddress.query.requestor.firstName}+' '+${queryAndAddress.query.requestor.lastName}"></h4>
+
+
+                            <th:block th:if="${user}">
+                                <div th:if="${queryAndAddress.query.acceptorId}">
+                                    <h4 th:text="'Accepted By '+${queryAndAddress.acceptor.firstName}+' '+${queryAndAddress.acceptor.lastName}"></h4>
+                                </div>
+                                <hr>
+                                <a th:href="@{/query/shelter/likes(queryId=${queryAndAddress.query.id})}"
+                                   class="btn btn-info btn-sm" style="height:44px; width:70px" >
+                                    <div style="font-size:25px;" align="center"> &#128077 <span style="font-size:15px;"><th:block th:text="${queryAndAddress.query.likes}"></th:block></span></div>
+                                </a>
+                                |
+                                <a th:href="@{/query/shelter/dislikes(queryId=${queryAndAddress.query.id})}"
+                                   class="btn btn-info btn-sm" style="height:44px; width:70px" >
+                                    <div style="font-size:25px;" align="center"> &#128078 <span style="font-size:15px;"><th:block th:text="${queryAndAddress.query.dislikes}"></th:block></span></div>
+                                </a>
+                                |
+
+                                <a th:href="@{/query/shelter/accept(queryId=${queryAndAddress.query.id})}"
+                                   class="btn btn-info btn-sm" style="height:44px; width:160px" >
+                                    <div th:if="${queryAndAddress.query.acceptorId}">
+                                        <div style="font-size:20px;" align="center"> Accepted</div>
+                                    </div>
+                                    <div th:unless="${queryAndAddress.query.acceptorId}">
+                                        <div style="font-size:20px;" align="center"> Accept</div>
+                                    </div>
+
+                                </a>
+
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- SCRIPTS -->
+
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/smoothscroll.js"></script>
+<script src="/js/custom.js"></script>
+
+</body>
+</html>

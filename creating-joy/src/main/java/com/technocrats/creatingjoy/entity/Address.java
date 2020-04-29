@@ -1,3 +1,4 @@
+
 package com.technocrats.creatingjoy.entity;
 
 import lombok.Getter;
@@ -72,12 +73,8 @@ public class Address {
 
     @ToString.Exclude
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="address_id",nullable = false)
+    @JoinColumn(name="query_id",nullable = false)
     private Query query;
-
-
-
-
 
 
 }

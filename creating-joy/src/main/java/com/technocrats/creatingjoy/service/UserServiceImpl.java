@@ -1,11 +1,15 @@
 package com.technocrats.creatingjoy.service;
 
+import com.technocrats.creatingjoy.config.CurrentUser;
 import com.technocrats.creatingjoy.dao.UserRepository;
 import com.technocrats.creatingjoy.dto.UserDTO;
 import com.technocrats.creatingjoy.entity.User;
 import com.technocrats.creatingjoy.objectmapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +19,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserRepository userRepository;
 
@@ -25,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
+
         this.userRepository = userRepository;
     }
 
@@ -59,6 +64,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(UserDTO userDto) {
+        String encryptedPassword = passwordEncoder.encode(userDto.getPassword());
+        userDto.setPassword(encryptedPassword);
         User user = userMapper.convertToEntity(userDto);
         userRepository.save(user);
     }
@@ -78,6 +85,22 @@ public class UserServiceImpl implements UserService {
             userDto = userMapper.convertToDto(user);
         return userDto;
 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+
+        log.info("username "+username);
+
+        UserDTO theUser = findByUserName(username);
+        log.info("user"+theUser);
+
+
+        if(theUser==null)
+            throw new UsernameNotFoundException("user not found");
+
+        return new CurrentUser(theUser);
     }
 
 

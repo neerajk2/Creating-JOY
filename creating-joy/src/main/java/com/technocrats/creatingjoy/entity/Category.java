@@ -1,3 +1,4 @@
+
 package com.technocrats.creatingjoy.entity;
 
 import lombok.Getter;
@@ -34,5 +35,5 @@ public class Category {
     private List<Query> queries;
 
 
-
 }
+

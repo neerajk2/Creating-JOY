@@ -1,15 +1,15 @@
 package com.technocrats.creatingjoy.service;
 
-import com.technocrats.creatingjoy.entity.Address;
-
-import java.util.List;
+import com.technocrats.creatingjoy.dto.AddressDTO;
 
 public interface AddressService {
 
-    List<Address> findAll();
-    Address findById(int id);
-    void save(Address address);
+
+    AddressDTO findById(int id);
     void deleteById(int id);
+
+    AddressDTO findByQueryId(int id);
+    void deleteByQueryId(int id);
 
 
 }

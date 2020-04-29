@@ -9,7 +9,6 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Time;
 
 @Entity
 @Table(name="query")
@@ -30,15 +29,19 @@ public class Query {
     @NotNull(message="is required")
     private String queryText;
 
+
     @ToString.Exclude
-    @Lob
     @Column(name="query_image")
     @NotNull(message = "is required")
-    private byte[] queryImage;
+    private String queryImage;
 
     @Column(name="timestamp")
     @NotNull(message="is required")
-    private Time timestamp;
+    private String timestamp;
+
+
+    @Column(name="acceptor_id")
+    private int acceptorId;
 
 
     @Column(name="likes")
@@ -47,19 +50,23 @@ public class Query {
     @Column(name="dislikes")
     private int dislikes;
 
+
     @ToString.Exclude
-    @ManyToOne(cascade = {CascadeType.ALL})
+    //@ManyToOne(cascade = {CascadeType.REMOVE,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
 
     @ToString.Exclude
-    @ManyToOne(cascade = {CascadeType.ALL})
+    //@ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name="requestor_id")
-    private User user;
+    private User requestor;
+
+
 
     @ToString.Exclude
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="query_id")
+    @OneToOne(mappedBy = "query",cascade={CascadeType.ALL})
     private Address address;
 
 

@@ -6,7 +6,10 @@
     overflow-x: hidden;
   }
 
+   #title{
 
+        font-size: 40px; !important
+   }
   /*---------------------------------------
      TYPOGRAPHY              
   -----------------------------------------*/
@@ -241,7 +244,7 @@
   }
 
   .custom-navbar .nav li a {
-    font-size: 14px;
+    font-size: 25px;
     font-weight: 500;
     color: #ffffff;
     letter-spacing: -0.5px;
@@ -293,6 +296,7 @@
     }
 
     .top-nav-collapse .navbar-brand {
+
       color: #252525;
     }
 
@@ -517,7 +521,7 @@
     border-radius: 3px;
     text-align: left;
     margin-bottom: 30px;
-    height: 350px;
+    height: 460px;
   }
 
   .media.blog-thumb .media-left {

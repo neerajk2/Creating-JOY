@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AddressRepository extends JpaRepository<Address,Integer> {
 
+    Address findByQueryId(int id);
+    void deleteByQueryId(int id);
 
 }

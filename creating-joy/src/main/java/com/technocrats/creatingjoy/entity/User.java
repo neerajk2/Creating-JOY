@@ -1,5 +1,6 @@
 package com.technocrats.creatingjoy.entity;
 
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +9,6 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity
 @Table(name="user")
@@ -62,29 +62,15 @@ public class User {
     @NotNull(message="is required")
     private String phoneNumber;
 
-    @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH })
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
-
-
-    @ToString.Exclude
-    @ManyToMany(fetch=FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH })
-    @JoinTable(name = "user_category",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<Category> categories;
-
+   /*
     @ToString.Exclude
     @OneToMany(mappedBy = "user",cascade={CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private List<Query> queries;
+    */
 
     @ToString.Exclude
     @OneToOne(mappedBy = "user",cascade={CascadeType.ALL})
     private Address address;
 
-    
 
 }
