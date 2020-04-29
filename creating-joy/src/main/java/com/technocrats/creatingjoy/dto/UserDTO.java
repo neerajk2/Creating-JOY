@@ -1,10 +1,16 @@
 package com.technocrats.creatingjoy.dto;
 
 
+import com.technocrats.creatingjoy.entity.Query;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.FetchType;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -18,20 +24,14 @@ public class UserDTO {
 
         private String lastName;
 
-        /*@NotNull(message = "User Name is required")
-        @Size(min=4,max=20,message="Length - at least 4 and at most 20")
-        @Pattern(regexp="^[a-zA-Z]+[a-zA-Z\\d]*([#_]?[a-zA-Z0-9]+)*$",message="Invalid user name")*/
+        @NotNull(message = "User Name is required")
         private String userName;
 
-        /*@NotNull(message = "Phone number is required")
-        @Size(min=8,max=14)
-       // @Pattern(regexp = "^(\\+)?[0-9]+$",message = "Invalid phone number")*/
+        @NotNull(message = "Phone number is required")
         private String phoneNumber;
 
-        /* @ToString.Exclude
+         @ToString.Exclude
          @NotNull(message = "Password is required")
-         @Size(min=8,max=16,message = "Length - at least 8 and at most 16")
-         //@Pattern(regexp="^[\\w]+[@#$%^&*\\w]*$",message="Invalid Password")*/
         private String password;
 
 
@@ -44,12 +44,12 @@ public class UserDTO {
         private AddressDTO addressDTO;
 
 
-        /*
+
 
         @ToString.Exclude
         @ElementCollection(fetch = FetchType.LAZY)
         private List<Query> queries;
-*/
+
 
 
 
