@@ -48,7 +48,7 @@ all the config values we need to run the application:
 | Account&nbsp;Sid  | Your primary Twilio account identifier - find this [in the Console](https://www.twilio.com/console).                                                         |
 | Auth&nbsp;Token   | Used to authenticate - [just like the above, you'll find this here](https://www.twilio.com/console).                                                         |
 |   Service&nbsp;Sid | Create a service - [in the the twilio verify console](https://www.twilio.com/console/verify/services)
-  |
+  
   
 
 ### Local Development
@@ -83,12 +83,15 @@ or
 ```
  
 * For a windows system 
-Execute this command in your cmd
-              ``` 
+
+     Execute this command in your cmd
+ ``` 
  ./mvnw spring-boot:run
-              ```
+ ```
   3. Navigate to http://localhost:8080
-That's it!
+  
+  
+##That's it!
 
 
 
