@@ -66,39 +66,36 @@ Set Twilio credentials using SPRING_APPLICATION_JSON properties on the command l
  
 ## How to execute
 - After the above requirements have been met:
-1.Clone this repository and cd into it
-git clone [https://github.com/neerajk2/Creating-JOY.git](https://github.com/neerajk2/Creating-JOY.git)
-2.Execution
- * For a linux or mac os system:
+
+1. Open terminal/command prompt run the command provided in local development.
+
+2. Clone this repository and `cd` into it
+
+  git clone [https://github.com/neerajk2/Creating-JOY.git](https://github.com/neerajk2/Creating-JOY.git
+  
+  
+3. Now run ``` cd creating-joy```
+
+4. Execution
+
  Execute this command in your terminal
 ```
 ./mvnw spring-boot:run
    ```
 or
 
-
 ```
   sudo apt install maven
   mvn clean spring-boot:run
 ```
+
+3. Navigate to http://localhost:8080
+  
  
-* For a windows system 
-
-     Execute this command in your cmd
- ``` 
- ./mvnw spring-boot:run
- ```
-  3. Navigate to http://localhost:8080
-  
-  
-
-
-
 
 ## How to use 
 
-- Download or clone the repository from github.
-- Open terminal/command prompt run the commands provided in local development.
+
 - Application will be running on the specified port.
 - Open browser and go to localhost:Port_number, homepage will open.
 - Press Signup button and enter your details 
@@ -114,7 +111,6 @@ or
 - On My Queries page, you can view all your posted queries and also, queries accepted by you and number of likes/dislikes for your queries.
 
 
- 
 
 ## That's it!
 
