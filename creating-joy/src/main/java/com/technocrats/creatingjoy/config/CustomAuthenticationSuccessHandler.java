@@ -32,13 +32,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         UserDTO theUser = userService.findByUserName(userName);
 
-        // now place in the session
+
         HttpSession session = request.getSession();
         session.setAttribute("user", theUser);
 
-        // forward to home page
 
-        response.sendRedirect(request.getContextPath() + "/register/home");
+
+        response.sendRedirect(request.getContextPath() + "/home");
 
 
     }

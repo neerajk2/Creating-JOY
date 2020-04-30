@@ -1,5 +1,6 @@
 package com.technocrats.creatingjoy.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
+    @Autowired
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
@@ -32,19 +37,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+
+        http.csrf().disable().authorizeRequests()
                 .antMatchers("/").permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/home")
+                .loginPage("/showRegistrationForm")
                 .loginProcessingUrl("/authenticateTheUser")
                 .successHandler(customAuthenticationSuccessHandler)
                 .permitAll()
                 .and()
-                .logout().permitAll()
+                .logout().logoutSuccessHandler(customLogoutSuccessHandler).permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/access-denied");
-
+        http.headers().frameOptions().disable();
     }
 
 
@@ -52,6 +58,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    ModelMapper modelMapper(){
+        return new ModelMapper();
+    }
+
 
 
     @Bean
@@ -61,14 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
         return auth;
     }
-
-
-
-
-
-
-
-
 
 
 

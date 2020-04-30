@@ -19,6 +19,30 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">-->
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="/css/templatemo-style.css">
+    <style>
+        .logout{
+
+           background: #ce3232;
+           border: 0;
+           border-radius: 100px;
+           color: #ffffff;
+            cursor: pointer;
+            font-size: inherit;
+            font-weight: normal;
+            padding: 15px 30px;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+        }
+        .logout:hover,
+          .logout:focus {
+            background: #00F260;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #0575E6, #00F260);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #0575E6, #00F260); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            border-color: transparent;
+            color: #393939;
+          }
+
+    </style>
 </head>
 <body>
 
@@ -42,7 +66,7 @@
             </button>
 
             <!-- lOGO TEXT HERE -->
-            <a href="index.html" class="navbar-brand">Creating - JOY</a>
+            <a th:href="@{/query/showHome}" class="navbar-brand" id="title">Creating - JOY</a>
         </div>
 
         <!-- MENU LINKS -->
@@ -50,14 +74,27 @@
             <ul class="nav navbar-nav navbar-nav-first">
                 <li><a href="#home" class="smoothScroll">Home</a></li>
                 <li><a href="#about" class="smoothScroll">About</a></li>
+                <li><a th:href="@{/query/food}" class="smoothScroll">Queries</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <div th:if="${currentUser}==null">
+                <li class="section-btn">
 
-                <li class="section-btn"><a th:href="@{/showRegistrationForm}">Sign in / Join</a></li>
+                        <a th:href="@{/showRegistrationForm}">Sign in / Join</a>
+
+
+                </li>
+                </div>
+
+                <div th:if="${currentUser}">
+                    <li>
+                        <form th:action="@{/logout}" method="POST">
+                            <input type="submit" value="Logout" class="logout"/>
+                        </form>
+                    </li>
+                </div>
+
 
             </ul>
         </div>
@@ -75,7 +112,7 @@
             <div class="col-md-6 col-sm-12">
                 <div class="home-info">
                     <h1>We make a LIVING by what we get, but we make a LIFE by what we give.</h1><h2> - Winston Churchill</h2>
-                    <a href="#about" class="btn section-btn smoothScroll">Post a query</a>
+                    <th:block th:if="${currentUser}"> <a th:href="@{/query/insertQuery}" class="btn section-btn smoothScroll">Post a query</a></th:block>
                     <span>
                                    CALL US (+91) contact-number
                                    <small>For any inquiry</small>
@@ -100,8 +137,8 @@
                         <h2>Let us introduce</h2>
                         <span class="line-bar">...</span>
                     </div>
-                    <p>If you're an Organisation or an Individual, we will help you cater to the needs of many.</p>
-                    <p>And if you're in the need of Food, Shelter or Clothes...help us help you.</p>
+                    <h4>If you're an Organisation or an Individual, we will help you cater to the needs of many.</h4>
+                    <h4>And if you're in the need of Food, Shelter or Clothes...help us help you.</h4>
                 </div>
             </div>
 
@@ -124,24 +161,15 @@
             <div class="col-md-5 col-sm-12">
                 <div class="footer-thumb footer-info">
                     <h2>Creating - JOY</h2>
-                    <p>An intergrated interface to help you help others.</p>
+                    <h2>An intergrated interface to help you help others.</h2>
                 </div>
             </div>
 
-            <div class="col-md-2 col-sm-4">
-                <div class="footer-thumb">
-                    <h2>Company</h2>
-                    <ul class="footer-link">
-                        <li><a href="#">About Us</a></li>
-                    </ul>
-                </div>
-            </div>
 
             <!---More options--->
             <div class="col-md-3 col-sm-4">
                 <div class="footer-thumb">
-                    <h2>Find us</h2>
-                    <p>123 Grand Rama IX, <br> Krung Thep Maha Nakhon 10400</p>
+                    <h2> help US help YOU </h2>
                 </div>
             </div>
 
@@ -156,11 +184,7 @@
                         <div class="phone-contact">
                             <p>Call us <span>(+91) contact-number</span></p>
                         </div>
-                        <ul class="social-icon">
-                            <li><a href="https://www.facebook.com/templatemo" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                            <li><a href="#" class="fa fa-twitter"></a></li>
-                            <li><a href="#" class="fa fa-instagram"></a></li>
-                        </ul>
+
                     </div>
                 </div>
             </div>

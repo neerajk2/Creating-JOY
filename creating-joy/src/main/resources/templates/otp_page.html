@@ -85,9 +85,9 @@
         }
 
 	.submit-btn{
-        width: 90%;
+        width: 50%;
         padding: 10px;
-        margin-left: 10px;
+        margin-left: 95px;
         cursor: pointer;
         display: block;
         background: linear-gradient(to right, #FFEE20, #FF4500);
@@ -96,7 +96,11 @@
         border-radius: 30px;
 	    font-weight: bold;
         }
+#otptime{
+       font-size: 20px;
 
+
+}
 
     </style>
 </head>
@@ -104,28 +108,59 @@
 <body>
 <div class="hero">
 
-<!-- HOME -->
-<section id="home" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-</div>
-</section>
+    <!-- HOME -->
+    <section id="home" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+        </div>
+    </section>
 
-     <form class="form-box" action="#" th:action="@{/verifyOTP}" method="post" >
-         <p th:if="${Message}"><p th:text="${Message}"></p></p>
-         <h3>Enter the OTP to verify your registration:</h3>
-         <div class="inputBox">
-                <input type="text" name="OTP" class="input-field" required>
-                <label>Enter OTP</label>
-                <input type="submit" value="Verify OTP" class="submit-btn">
-                <h4> If OTP not received, click <a th:href="@{/verifyOTP}">here</a> to resend the OTP.</h4>
-         </div>
-     </form>
+    <form class="form-box" action="#" th:action="@{/verifyOTP}" method="post" th:object="${userDTO}">
+        <p align="center" style='color:red' th:if="${Message}"><p th:text="${Message}"></p></p>
+        <h3>Enter the OTP to verify your registration:</h3>
+        <div class="inputBox">
+            <input type="text" name="OTP" class="input-field" required>
+            <label>Enter OTP</label>
+            <input type="submit" value="Verify OTP" class="submit-btn">
+         
+            <p id="otptime" align="center" class="custom-control-label" ></p>
+
+            <div id="resend" align="center">
+                <script>
+                 var expiryTime=40;
+                 var time=expiryTime;
+
+                 var otpText=document.getElementById("otptime");
+                 var resendPass=document.getElementById("resend");
+                 function updateTime(){
+
+                 if (time>=0){
+                 otpText.innerHTML="OTP expires in :"+time+" secs";
+                 time--;
+                 }else{
+                 otpText.innerHTML="<p style='color:red'>OTP expired<p>";
+                 resendPass.innerHTML='<a href="/resendOTP" onclick="otpTime()"><b>Resend OTP</b></a>';
+                 clearInterval(id);
+                 }
+                 }
+                 var id = setInterval(updateTime,1000);
+
+                 function otpTime() {
+                 resendPass.innerHTML='<p align="center">Resend OTP</p>';
+                 time=expiryTime;
+                 id = setInterval(updateTime,1000);
+                 }
+                 </script>
+            </div>
+
+        </div>
+
+    </form>
 
 </div>
+
 </body>
 </html>
-
 
 
 

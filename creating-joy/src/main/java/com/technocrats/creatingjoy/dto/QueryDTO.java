@@ -1,14 +1,9 @@
 package com.technocrats.creatingjoy.dto;
 
-import com.technocrats.creatingjoy.entity.Address;
-import com.technocrats.creatingjoy.entity.Category;
-import com.technocrats.creatingjoy.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.sql.Time;
 
 @Getter
 @Setter
@@ -20,20 +15,20 @@ public class QueryDTO {
 
     private String queryText;
 
-    private byte[] queryImage;
+    private String queryImage;
 
-    private Time timestamp;
+    private String timestamp;
 
     private int likes;
 
     private int dislikes;
 
-    private Category category;
+    private CategoryDTO categoryDTO;
 
     private UserDTO requestor;
 
-    private UserDTO acceptor;
+    private int acceptorId;
 
-    private AddressDTO address;
+    private AddressDTO addressDTO;
 
 }
