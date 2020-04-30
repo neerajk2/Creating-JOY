@@ -91,7 +91,6 @@ or
   3. Navigate to http://localhost:8080
   
   
-##That's it!
 
 
 
@@ -117,7 +116,7 @@ or
 
  
 
-That's it!
+## That's it!
 
 ## License
 
