@@ -21,7 +21,7 @@
         width: 100%;
         background: linear-gradient(to right, #0575E6, #00F260);
 
-        background: url('/images/home-bg.jpg') no-repeat center center;
+
         background-position: center;
         background-size: cover;
         position: absolute;
@@ -41,8 +41,7 @@
         }
 
         .form-box{
-        width: 380px;
-
+        width: 400px;
         height: 1200px;
         position: relative;
         margin: 6% auto;
@@ -54,12 +53,14 @@
         .button-box{
         width: 220px;
         margin: 35px auto;
+
         position: relative;
         box-shadow: 0 0 20px 9px #ff61241f;
         border-radius: 30px;
         }
 
         .toggle-btn{
+
         padding: 10px 30px;
         cursor: pointer;
         background: transparent;
@@ -84,10 +85,12 @@
         .input-group{
         top: 180px;
         position: absolute;
-        width: 280px;
+        width: 400px;
         transition: .5s;
         border-radius: 30px;
         }
+
+
 
         .form-box .inputBox{
         position: relative;
@@ -106,9 +109,9 @@
         .form-box .inputBox .input-field:focus ~ label, .form-box .inputBox .input-field:valid ~ label{
         top: -25px;
         left: 0;
-        font-weight: bold;
-        font-size: 14px;
-        color: #000000;
+
+        font-size: 16px;
+        color: black;
         }
 
         .input-field{
@@ -126,14 +129,15 @@
         }
 
         .submit-btn{
-        width: 85%;
-        padding: 10px 30px;
+        width: 50%;
+        padding: 3px;
+        margin-left: 100px;
         cursor: pointer;
         display: block;
-        margin: auto;
         background: linear-gradient(to right, #FFEE20, #FF4500);
         border: 0;
         outline: none;
+        font-size: 20px;
         border-radius: 30px;
 	    font-weight: bold;
         }
@@ -150,19 +154,64 @@
         }
 
         #login{
-        left: 50px;
+        left: 0px;
         }
 
         #register{
-        left: 450px;
+        left: 500px;
         }
+
+          #title{
+
+            font-size: 40px; !important
+            color: black;  !important
+         }
+
+        .nav{
+
+        font-size: 30px;
+        color: black;
+        float: right;
+
+        }
+
+        .navbar-brand{
+
+            color: black; !important
+        }
+        .smoothScroll{
+         color: black;
+        }
+
     </style>
 </head>
 
 <body>
 <div class="hero">
 
+    <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+        <div class="container">
 
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                </button>
+
+                <a th:href="@{/query/showHome}" class="navbar-brand" id="title">Creating - JOY</a>
+            </div>
+
+            <!-- MENU LINKS -->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-nav-first">
+                    <li><a th:href="@{/query/showHome}" class="smoothScroll">Home</a></li>
+                    <li><a th:href="@{/query/food}" class="smoothScroll">Queries</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
     <!-- HOME -->
     <section id="home" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
@@ -172,13 +221,13 @@
 
 
     <div class="form-box">
-        <div class="button-box">
+        <div class="button-box" align="center">
             <div id="btn"></div>
             <button type="button" class="toggle-btn" onclick="login()">Log In</button>
             <button type="button" class="toggle-btn" onclick="register()">Register</button>
         </div>
 
-        <form action="#" th:action="@{/authenticateTheUser}"  id="login" method="post" class="input-group">
+        <form action="#" th:action="@{/authenticateTheUser}" align="center"  id="login" method="post" class="input-group">
 
             <div class="form-group">
                 <div class="col-xs-15">
@@ -217,11 +266,11 @@
 
                 <label>Password</label>
             </div>
-            <input type="checkbox" class="check-box"><span>Remember Password</span>
-            <input type="submit" value="Log in" class="submit-btn">
+
+            <input type="submit" value="Log in" align="center" class="submit-btn">
         </form>
 
-        <form id="register" action="#" th:action="@{/processRegistrationForm}"  th:object="${user}" method="post" class="input-group">
+        <form id="register" align="center" action="#" th:action="@{/processRegistrationForm}"  th:object="${user}" method="post" class="input-group">
 
 
 
@@ -239,49 +288,48 @@
 
             <div class="inputBox">
                 <input type="text" class="input-field" th:field="*{firstName}" pattern="[a-zA-Z]{3,30}" required>
-
-                <label>First Name(*)</label>
+                <label>First Name*</label>
                 <p class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
             </div>
             <div class="inputBox">
                 <input type="text" class="input-field" th:field="*{lastName}" pattern="[a-zA-Z]{3,30}" required>
-                <label>Last Name(*)</label>
+                <label>Last Name*</label>
                 <p  class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
             </div>
             <div class="inputBox">
                 <input type="text" class="input-field" th:field="*{phoneNumber}"  pattern="[0-9]{10,.}" required>
-                <label>Phone number(*)</label>
+                <label>Phone number with country code*</label>
                 <p class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
             </div>
             <div class="inputBox">
                 <input type="text" class="input-field" th:field="*{website}" required>
-                <label>Website</label>
+                <label>Website/gmail*</label>
             </div>
 
             <div class="inputBox">
                 <input type="text" class="input-field" th:field="*{userName}" required>
-                <label>Username(*)</label>
+                <label>Username*</label>
                 <p class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
             </div>
 
             <div class="inputBox">
                 <input type="password" class="input-field" name="password" pattern=".{8,20}" required>
-                <label>Password(*)</label>
+                <label>Password*</label>
                 <p th:if="${#fields.hasErrors('userName')}" th:errors="*{password}"></p>
             </div>
             <div class="inputBox">
                 <input type="password" class="input-field" name="confirm-password" pattern=".{8,20}" required>
-                <label>Confirm Password(*)</label>
+                <label>Confirm Password*</label>
                 <p th:if="${#fields.hasErrors('userName')}" th:errors="*{password}"></p>
             </div>
             <th:block th:object="${address}">
                 <div class="inputBox">
                     <input type="text" class="input-field" th:field="*{houseNumber}" required>
-                    <label>House number(*)</label>
+                    <label>House number*</label>
                 </div>
                 <div class="inputBox">
                     <input type="text" class="input-field" th:field="*{street}" required>
-                    <label>Street(*)</label>
+                    <label>Street*</label>
                 </div>
                 <div class="inputBox">
                     <input type="text" class="input-field" th:field="*{landmark}" required>
@@ -289,23 +337,23 @@
                 </div>
                 <div class="inputBox">
                     <input type="text" class="input-field" th:field="*{city}" required>
-                    <label>City(*)</label>
+                    <label>City*</label>
                 </div>
                 <div class="inputBox">
                     <input type="text" class="input-field" th:field="*{ZIP}" required>
-                    <label>ZIP(*)</label>
+                    <label>ZIP*</label>
                 </div>
                 <div class="inputBox">
                     <input type="text" class="input-field" th:field="*{state}" required>
-                    <label>State(*)</label>
+                    <label>State*</label>
                 </div>
                 <div class="inputBox">
                     <input type="text" class="input-field" th:field="*{country}" required>
-                    <label>Country(*)</label>
+                    <label>Country*</label>
                 </div>
-                <input type="checkbox" class="check-box"><span>I agree to the terms and conditions</span>
 
-                <input type="submit" value="Register" class="submit-btn">
+
+                <input type="submit" value="Register" align="center" class="submit-btn">
 
             </th:block>
 
@@ -319,14 +367,14 @@ var y = document.getElementById("register");
 var z = document.getElementById("btn");
 
 function register(){
-x.style.left = "-400px";
-y.style.left = "50px";
+x.style.left = "-740px";
+y.style.left = "0px";
 z.style.left = "110px";
 }
 
 function login(){
-x.style.left = "50px";
-y.style.left = "450px";
+x.style.left = "0px";
+y.style.left = "800px";
 z.style.left = "0px";
 }
 </script>

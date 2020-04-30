@@ -62,7 +62,7 @@ public class QueryController {
     public String insertQuery(@ModelAttribute("queryDTO") QueryDTO queryDTO, @ModelAttribute("addressDTO") AddressDTO addressDTO, @ModelAttribute("categoryDTO") CategoryDTO categoryDTO,Model theModel,HttpServletRequest request) {
 
         String category=request.getParameter("category");
-        CategoryDTO categoryDTO1=categoryService.findByName(category);
+        CategoryDTO categoryDTO1=categoryService.findByCategoryName(category);
         java.util.Date date=new java.util.Date();
         java.sql.Timestamp sqlTime=new java.sql.Timestamp(date.getTime());
 
@@ -152,7 +152,7 @@ public class QueryController {
 
         HttpSession session=request.getSession();
         UserDTO userDTO=(UserDTO) session.getAttribute("user");
-        List<QueryDTO> queriesOfUser=queryService.findByRequestorId(userDTO.getId());
+        List<QueryDTO> queriesOfUser=queryService.findByRequestorIdOrAcceptorId(userDTO.getId(),userDTO.getId());
         List<QueryAddressDTO> queryAddresses=fillUpQuery(queriesOfUser);
         model.addAttribute("QueryAddress",queryAddresses);
         return "list-my-queries";
@@ -175,7 +175,7 @@ public class QueryController {
     @GetMapping("/food/likes")
     public String foodLikes(@RequestParam("queryId") int id,@ModelAttribute("categoryName") String categoryName){
         QueryDTO queryDTO=queryService.findById(id);
-        queryDTO.setCategoryDTO(categoryService.findByName("FOOD"));
+        queryDTO.setCategoryDTO(categoryService.findByCategoryName("FOOD"));
         queryDTO.setLikes(queryDTO.getLikes()+1);
         queryService.save(queryDTO);
 
@@ -185,7 +185,7 @@ public class QueryController {
     @GetMapping("/food/dislikes")
     public String foodDislikes(@RequestParam("queryId") int id,Model model,HttpServletRequest request){
         QueryDTO queryDTO=queryService.findById(id);
-        queryDTO.setCategoryDTO(categoryService.findByName("FOOD"));
+        queryDTO.setCategoryDTO(categoryService.findByCategoryName("FOOD"));
         queryDTO.setDislikes(queryDTO.getDislikes()+1);
         if(queryDTO.getDislikes()==5){
             queryDTO.setCategoryDTO(null);
@@ -202,7 +202,7 @@ public class QueryController {
     @GetMapping("/shelter/likes")
     public String shelterLikes(@RequestParam("queryId") int id){
         QueryDTO queryDTO=queryService.findById(id);
-        queryDTO.setCategoryDTO(categoryService.findByName("SHELTER"));
+        queryDTO.setCategoryDTO(categoryService.findByCategoryName("SHELTER"));
         queryDTO.setLikes(queryDTO.getLikes()+1);
         queryService.save(queryDTO);
 
@@ -212,7 +212,7 @@ public class QueryController {
     @GetMapping("/shelter/dislikes")
     public String shelterDislikes(@RequestParam("queryId") int id,Model model,HttpServletRequest request){
         QueryDTO queryDTO=queryService.findById(id);
-        queryDTO.setCategoryDTO(categoryService.findByName("SHELTER"));
+        queryDTO.setCategoryDTO(categoryService.findByCategoryName("SHELTER"));
         queryDTO.setDislikes(queryDTO.getDislikes()+1);
         if(queryDTO.getDislikes()==5){
             queryDTO.setCategoryDTO(null);
@@ -227,7 +227,7 @@ public class QueryController {
     @GetMapping("/clothes/likes")
     public String clothesLikes(@RequestParam("queryId") int id){
         QueryDTO queryDTO=queryService.findById(id);
-        queryDTO.setCategoryDTO(categoryService.findByName("CLOTHES"));
+        queryDTO.setCategoryDTO(categoryService.findByCategoryName("CLOTHES"));
         queryDTO.setLikes(queryDTO.getLikes()+1);
         queryService.save(queryDTO);
         return "redirect:/query/clothes";
@@ -236,7 +236,7 @@ public class QueryController {
     @GetMapping("/clothes/dislikes")
     public String clothesDislikes(@RequestParam("queryId") int id){
         QueryDTO queryDTO=queryService.findById(id);
-        queryDTO.setCategoryDTO(categoryService.findByName("CLOTHES"));
+        queryDTO.setCategoryDTO(categoryService.findByCategoryName("CLOTHES"));
         queryDTO.setDislikes(queryDTO.getDislikes()+1);
         if(queryDTO.getDislikes()==5){
 
@@ -258,7 +258,7 @@ public class QueryController {
         UserDTO userDTO=(UserDTO) session.getAttribute("user");
         log.info("user {}",userDTO);
        QueryDTO queryDTO=queryService.findById(id);
-       queryDTO.setCategoryDTO(categoryService.findByName("SHELTER"));
+       queryDTO.setCategoryDTO(categoryService.findByCategoryName("SHELTER"));
        queryDTO.setAcceptorId(userDTO.getId());
         queryService.save(queryDTO);
         return "redirect:/query/shelter";
@@ -272,7 +272,7 @@ public class QueryController {
         UserDTO userDTO=(UserDTO) session.getAttribute("user");
         log.info("user {}",userDTO);
         QueryDTO queryDTO=queryService.findById(id);
-        queryDTO.setCategoryDTO(categoryService.findByName("FOOD"));
+        queryDTO.setCategoryDTO(categoryService.findByCategoryName("FOOD"));
         queryDTO.setAcceptorId(userDTO.getId());
         queryService.save(queryDTO);
         return "redirect:/query/food";
@@ -284,7 +284,7 @@ public class QueryController {
         HttpSession session=request.getSession();
         UserDTO userDTO=(UserDTO) session.getAttribute("user");
         QueryDTO queryDTO=queryService.findById(id);
-        queryDTO.setCategoryDTO(categoryService.findByName("CLOTHES"));
+        queryDTO.setCategoryDTO(categoryService.findByCategoryName("CLOTHES"));
         queryDTO.setAcceptorId(userDTO.getId());
         queryService.save(queryDTO);
         return "redirect:/query/clothes";

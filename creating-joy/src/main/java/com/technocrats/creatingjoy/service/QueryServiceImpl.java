@@ -63,9 +63,9 @@ public class QueryServiceImpl implements QueryService{
 
     @Override
     @Transactional
-    public List<QueryDTO> findByRequestorId(int id) {
+    public List<QueryDTO> findByRequestorIdOrAcceptorId(int id1,int id2) {
         List<Query> queries=new ArrayList<>();
-        queries=queryRepository.findByRequestorId(id);
+        queries=queryRepository.findByRequestorIdOrAcceptorId(id1,id2);
 
         List<QueryDTO> queryDTOS = new ArrayList<>();
         for(Query query: queries) {

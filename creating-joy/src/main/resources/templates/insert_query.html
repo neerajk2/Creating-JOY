@@ -43,20 +43,29 @@
         }
 
 	.form-box{
-        width: 400px;
+        width: 600px;
         height: 1300px;
         position: relative;
         margin: 6% auto;
-        background: transparent;
+        background:  transparent;
         padding: 5px;
         overflow: hidden;
         }
 
-	.form-box .inputBox{
+	.form-box > .inputBox{
         position: relative;
+
         }
 
-        .form-box .inputBox label {
+        .inputBox{
+
+            width: 400px;
+            margin-left: 95px;
+
+        }
+
+
+        .form-box > .inputBox > label {
         position: absolute;
         top: 0;
         left: 0;
@@ -78,19 +87,22 @@
 
         border-radius: 30px;
         height: 200px;
-        width: 320px;
+        width: 400px;
         padding: 30px 30px;
         margin: 10px 0px;
         }
 
         .liner{
         width: 100%;
+
         font-size: 20px;
         font-weight: bold;
         }
 
         .choose{
-        width: 90%;
+          margin-left: 100px;
+
+        width: 400px;
         padding: 10px;
         cursor: pointer;
         display: block;
@@ -103,7 +115,7 @@
 
 
     .input-field{
-        width: 90%;
+        width: 400px;
         padding: 8px 10px;
         margin: 10px 0;
         border-left: 0;
@@ -117,9 +129,9 @@
         }
 
 	.submit-btn{
-        width: 90%;
+        width: 50%;
         padding: 3px;
-        margin-left: 10px;
+        margin-left: 130px;
         cursor: pointer;
         display: block;
         background: linear-gradient(to right, #FFEE20, #FF4500);
@@ -197,16 +209,16 @@
         <div class="container">
         </div>
     </section>
-    <form action="#" th:action="@{/query/processQuery}" th:object="${queryDTO}"  method="post" class="form-box">
+    <form action="#" th:action="@{/query/processQuery}" th:object="${queryDTO}"  method="post" class="form-box" align="center">
         <h2>Post Query</h2>
-        <textarea class="textbox" rows="4" cols="50" th:field="*{queryText}">
+        <textarea class="textbox" rows="4" cols="50" th:field="*{queryText}" >
             <h4 style="color:black;">"Enter Your Query here..."</h4>
         </textarea>
         <br>
         <label class="liner">Upload an image
             <br>
         </label>
-        <input class="choose" type="file" name="myImage" accept="image/*" th:field="${queryDTO.queryImage}" />
+        <input align="center" class="choose" type="file" name="myImage" accept="image/*" th:field="${queryDTO.queryImage}" />
         <br>
         <label class="liner">Category
             <br>
@@ -214,10 +226,10 @@
         <th:block th:object="${categoryDTO}">
 
 
-            <select class="choose" name="category">
-                <option class="options" value="food" >Food</option>
-                <option class="options" value="clothes" >clothes</option>
-                <option class="options" value="shelter" >shelter</option>
+            <select  class="choose" name="category">
+                <option class="options" value="FOOD" >Food</option>
+                <option class="options" value="COLTHES" >clothes</option>
+                <option class="options" value="SHELTER" >shelter</option>
 
             </select>
         </th:block>

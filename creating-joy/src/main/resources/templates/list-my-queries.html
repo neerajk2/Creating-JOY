@@ -89,9 +89,7 @@
 
             <div class="col-md-12 col-sm-12">
                 <div class="section-title">
-                    <h2>Posted Queries</h2>
-                    <br>
-                    <h4>My Queries</h4>
+                    <h2>My Requested Queries And Accepted Queries</h2>
                     <span class="line-bar">...</span>
                 </div>
             </div>
@@ -112,6 +110,10 @@
 
                             <h4 th:text="${queryAndAddress.address.street}+','+${queryAndAddress.address.landmark}+','+${queryAndAddress.address.city}+','+${queryAndAddress.address.state}+','+${queryAndAddress.address.country}+','+${queryAndAddress.address.ZIP}"></h4>
                             <h4 th:text="'Posted By '+${queryAndAddress.query.requestor.firstName}+' '+${queryAndAddress.query.requestor.lastName}"></h4>
+                            <div th:if="${queryAndAddress.query.acceptorId}">
+                                <h4 th:text="'Accepted By '+${queryAndAddress.acceptor.firstName}+' '+${queryAndAddress.acceptor.lastName}"></h4>
+                            </div>
+
                             <hr>
 
                             <a class="btn btn-info btn-sm" style="height:60px; width:80px" >

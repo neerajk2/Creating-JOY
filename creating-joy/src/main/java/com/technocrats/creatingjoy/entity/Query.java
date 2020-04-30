@@ -52,13 +52,11 @@ public class Query {
 
 
     @ToString.Exclude
-    //@ManyToOne(cascade = {CascadeType.REMOVE,CascadeType.REFRESH})
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
 
     @ToString.Exclude
-    //@ManyToOne(cascade = {CascadeType.ALL})
     @ManyToOne
     @JoinColumn(name="requestor_id")
     private User requestor;

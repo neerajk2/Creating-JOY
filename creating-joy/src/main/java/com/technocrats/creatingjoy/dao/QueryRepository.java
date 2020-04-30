@@ -9,5 +9,5 @@ public interface QueryRepository extends JpaRepository<Query,Integer>
 {
 
     List<Query> findByCategoryId(int id);
-    List<Query> findByRequestorId(int id);
+    List<Query> findByRequestorIdOrAcceptorId(int id1,int id2);
 }

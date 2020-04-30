@@ -126,21 +126,25 @@
                                 </a>
                                 |
                                 <a th:href="@{/query/clothes/dislikes(queryId=${queryAndAddress.query.id})}"
-                                   class="btn btn-info btn-sm" style="height:44px; width:70px" >
+                                   class="btn btn-info btn-sm" style="height:44px; width:70px background:transparent;" >
                                     <div style="font-size:25px;" align="center"> &#128078 <span style="font-size:15px;"><th:block th:text="${queryAndAddress.query.dislikes}"></th:block></span></div>
                                 </a>
+
+                                <th:block th:if="${queryAndAddress.query.acceptorId}">
                                 |
-
-                                <a th:href="@{/query/clothes/accept(queryId=${queryAndAddress.query.id})}"
-                                   class="btn btn-info btn-sm" style="height:44px; width:160px" >
-                                    <div th:if="${queryAndAddress.query.acceptorId}">
-                                        <div style="font-size:20px;" align="center"> Accepted</div>
-                                    </div>
-                                    <div th:unless="${queryAndAddress.query.acceptorId}">
-                                        <div style="font-size:20px;" align="center"> Accept</div>
-                                    </div>
-
+                                <a href="#"  class="btn btn-info btn-sm" style="height:44px; width:160px" >
+                                    <div style="font-size:20px;" align="center"> Accepted</div>
                                 </a>
+                                </th:block>
+                                <th:block th:unless="${queryAndAddress.query.acceptorId}">
+                                |
+                                <a th:href="@{/query/clothes/accept(queryId=${queryAndAddress.query.id})}"
+                                       class="btn btn-info btn-sm" style="height:44px; width:160px" >
+                                    <div style="font-size:20px;" align="center"> Accept</div>
+                                </a>
+                                </th:block>
+
+
                             </th:block>
                         </div>
                     </div>
@@ -155,18 +159,6 @@
 
 
 <!-- SCRIPTS -->
-<script>
-
-    function changeName(){
-
-        var btn=document.getElementById("changeBtn").value;
-
-    }
-
-
-
-
-</script>
 
 
 <script src="/js/jquery.js"></script>

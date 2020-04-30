@@ -12,7 +12,7 @@ public interface QueryService {
     void deleteById(int id);
 
     List<QueryDTO> findByCategoryId(int id);
-    List<QueryDTO> findByRequestorId(int id);
+    List<QueryDTO> findByRequestorIdOrAcceptorId(int id1,int id2);
 
 
 

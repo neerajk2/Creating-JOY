@@ -37,7 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+
+        http.csrf().disable().authorizeRequests()
                 .antMatchers("/").permitAll()
                 .and()
                 .formLogin()
@@ -49,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessHandler(customLogoutSuccessHandler).permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/access-denied");
-
+        http.headers().frameOptions().disable();
     }
 
 
@@ -72,15 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
         return auth;
     }
-
-
-
-
-
-
-
-
-
 
 
 

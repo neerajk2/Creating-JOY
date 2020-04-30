@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface CategoryService {
     List<CategoryDTO> findAll();
-    CategoryDTO findByName(String categoryName);
+    CategoryDTO findByCategoryName(String categoryName);
 
 }

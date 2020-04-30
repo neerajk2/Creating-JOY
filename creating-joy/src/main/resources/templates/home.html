@@ -22,19 +22,25 @@
     <style>
         .logout{
 
-            background: red;
-            color: white;
-
-            border-style: outset;
-
-            border-color: red;
-
-            font-size: 25px;
-
-            font: bold 15px arial, sans-serif;
-
-            text-shadow:none;
+           background: #ce3232;
+           border: 0;
+           border-radius: 100px;
+           color: #ffffff;
+            cursor: pointer;
+            font-size: inherit;
+            font-weight: normal;
+            padding: 15px 30px;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
         }
+        .logout:hover,
+          .logout:focus {
+            background: #00F260;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #0575E6, #00F260);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #0575E6, #00F260); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            border-color: transparent;
+            color: #393939;
+          }
 
     </style>
 </head>
@@ -72,17 +78,23 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <div th:if="${currentUser}==null">
                 <li class="section-btn">
-                    <div th:if="${currentUser}==null">
-                        <a th:href="@{/showRegistrationForm}">Sign in / Join</a>
-                    </div>
 
-                    <div th:if="${currentUser}">
-                        <form th:action="@{/logout}" method="POST" class="smoothScroll">
+                        <a th:href="@{/showRegistrationForm}">Sign in / Join</a>
+
+
+                </li>
+                </div>
+
+                <div th:if="${currentUser}">
+                    <li>
+                        <form th:action="@{/logout}" method="POST">
                             <input type="submit" value="Logout" class="logout"/>
                         </form>
-                    </div>
-                </li>
+                    </li>
+                </div>
+
 
             </ul>
         </div>
